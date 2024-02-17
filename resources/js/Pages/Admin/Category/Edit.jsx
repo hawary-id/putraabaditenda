@@ -4,15 +4,54 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextArea from '@/Components/TextArea';
 import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 
-export default function Index({auth}) {
-    const { data, setData, post, processing, errors } = useForm({
-        name: '',
-        description: '',
-        thumbnail: '',
+export default function Index({auth,category,categories}) {
+    const [errors, setErrors] = useState({});
+    const { data, setData, processing } = useForm({
+        name: category.name,
+        description: category.description,
+        thumbnail: category.thumbnail,
     });
+
+    const validateForm = () => {
+        let isValid = true;
+        const newErrors = {};
+        
+        if (!data.name) {
+          newErrors.name = "The name field is required.";
+          isValid = false;
+        }else {
+            const categoryExist = categories.some(category => category.name === data.name);
+            if (categoryExist && (data.name != category.name)) {
+                newErrors.name = 'The name has already been taken.';
+                isValid = false;
+            }
+        }
+        if (!data.description) {
+            newErrors.description = "The description field is required.";
+            isValid = false;
+        }
+        if (!data.thumbnail) {
+            newErrors.thumbnail = "The thumbnail field is required.";
+            isValid = false;
+        } else {
+            const allowedFormats = ["image/jpeg", "image/png"];
+            const maxSize = 2 * 1024 * 1024; // 2MB
+          
+            if ((data.thumbnail != category.thumbnail) && !allowedFormats.includes(data.thumbnail.type)) {
+                newErrors.thumbnail = "The thumbnail format must be 'JPG/PNG'";
+                isValid = false;
+            } else if (data.thumbnail.size > maxSize) {
+                newErrors.thumbnail = "The thumbnail size must be 2MB maximum";
+                isValid = false;
+            }
+        }
+        setErrors(newErrors);
+        return isValid;
+    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -23,14 +62,19 @@ export default function Index({auth}) {
             showConfirmButton:true,
         }).then((result) => {
             if (result.isConfirmed) {
-                post(route('admin.category.store'));
+                if(validateForm()){
+                    router.post(route('admin.category.update',category.id),{
+                        ...data,
+                        _method: 'put'
+                    });
+                }
             }
         });
     };
     
     return (
         <Authenticated user={auth.user}>
-            <Head title='Create Category' />
+            <Head title='Edit Category' />
             <div className="flex justify-center w-full">
                 <form onSubmit={submit} className="w-full bg-white rounded-md shadow-md md:w-1/4">
                     <div className="px-5 py-3 font-semibold text-gray-800 uppercase border-b">Create New Category</div>
@@ -66,11 +110,19 @@ export default function Index({auth}) {
                             <InputLabel htmlFor="thumbnail" value="Thumbnail" required/>
                             {data.thumbnail ? (
                                 <div className="mt-2">
-                                    <img
-                                        src={URL.createObjectURL(data.thumbnail)}
-                                        alt="Uploaded Photo"
-                                        className="object-contain object-left w-full mb-2 max-h-24"
-                                    />
+                                    {data.thumbnail != category.thumbnail ? (
+                                        <img
+                                            src={URL.createObjectURL(data.thumbnail)}
+                                            alt="Uploaded Photo"
+                                            className="object-contain object-left w-full mb-2 max-h-24"
+                                        />
+                                    ):(
+                                        <img
+                                            src={`/storage/${data.thumbnail}`}
+                                            alt="Uploaded Photo"
+                                            className="object-contain object-left w-full mb-2 max-h-24"
+                                        />
+                                    )}
                                     <div className="flex items-center">
                                         <span className="mr-2 text-sm font-light text-gray-600">{data.thumbnail.name}</span>
                                         <button

@@ -1,22 +1,22 @@
 import Sidebar from '@/Components/Sidebar';
-import { Button } from 'primereact/button';
+import { Head } from '@inertiajs/react';
 import { Sidebar as SidebarPrime } from 'primereact/sidebar';
 import { useState } from 'react';
 
 export default function Authenticated({ user, header, children }) {
     const [visible, setVisible] = useState(false);
+    
     return (
         <div className="flex min-h-screen bg-gray-100">
-            <SidebarPrime visible={visible} onHide={() => setVisible(false)} className='block md:hidden'>
-                <h2>Sidebar</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
+            <Head>
+                <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+            </Head>
+            <SidebarPrime visible={visible} onHide={() => setVisible(false)} className='block bg-gray-800 md:hidden'>
+                <Sidebar className='block'/>
             </SidebarPrime>
             <Sidebar/>
-           <div className="w-full">
-                <nav className="w-full">
+           <div className="w-full h-screen overflow-y-auto">
+                <nav className="sticky top-0 w-full">
                     <div className="flex items-center justify-between px-4 py-2 bg-white shadow-md md:justify-end">
                         <button onClick={() => setVisible(true)} className='block px-2 py-1 border rounded md:hidden h-fit bi-list hover:bg-gray-100 active:bg-gray-100 focus:bg-gray-100'></button>
                         <button className="flex items-center space-x-3 group">

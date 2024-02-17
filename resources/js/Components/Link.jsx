@@ -5,7 +5,7 @@ export default function Link({ className = '', disabled, children, ...props }) {
         <LinkReact
             {...props}
             className={  
-                `${className} inline-flex items-center w-fit h-fit px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 ${
+                `${className} inline-flex items-center w-fit px-4 py-2 border border-transparent hover:text-white rounded-md font-semibold text-xs uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150${
                     disabled && 'opacity-25'
                 }`
             }

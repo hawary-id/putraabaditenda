@@ -8,8 +8,9 @@ import { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import Swal from 'sweetalert2';
 import FlashMessage from '@/Components/FlashMessage';
+import { formatNumber } from '@/Utils/utils';
 
-export default function Index({auth,flashMessage,categories}) {
+export default function Index({auth,flashMessage,products}) {
     const { get,delete: destroy } = useForm();
     const [filterText, setFilterText] = useState('');
     
@@ -21,13 +22,13 @@ export default function Index({auth,flashMessage,categories}) {
         setFilterText('');
     };
 
-    const filteredData = categories.filter(item =>
+    const filteredData = products.filter(item =>
         item.name.toLowerCase().includes(filterText.toLowerCase()) ||
         item.description.toLowerCase().includes(filterText.toLowerCase())
     );
 
     const handleEdit = (id) => {
-        get(route('admin.category.edit',id));
+        get(route('admin.product.edit',id));
     }
 
     function handleDelete(id) {
@@ -40,7 +41,7 @@ export default function Index({auth,flashMessage,categories}) {
             denyButtonText: 'Delete',
         }).then((result) => {
             if (result.isDenied) {
-                destroy(route('admin.category.destroy',id))
+                destroy(route('admin.product.destroy',id))
             }
         });
     };
@@ -50,6 +51,11 @@ export default function Index({auth,flashMessage,categories}) {
             selector: (_, index) => index + 1,
         },
         {
+            name: 'Category',
+            selector: row => row.category?.name,
+            sortable: true,
+        },
+        {
             name: 'Name',
             selector: row => row.name,
             sortable: true,
@@ -57,11 +63,25 @@ export default function Index({auth,flashMessage,categories}) {
         {
             name: 'Description',
             selector: row => row.description,
+            cell: row =>
+                <div dangerouslySetInnerHTML={{ __html: row.description.substring(0, 100) + "..." }} />,
+        },
+        {
+            name: 'Price (Rp)',
+            selector: row => row.price,
+            cell: row => formatNumber(row.price),
+            sortable: true,
+        },
+        {
+            name: 'Discount Price (Rp)',
+            selector: row => row.discount_price,
+            cell: row => formatNumber(row.discount_price),
+            sortable: true,
         },
         {
             name: 'Thumbnail',
             cell: row => (
-                <img src={`/storage/${row.thumbnail}`} alt={row.name} className='w-24 py-2'/>
+                <img src={`/storage/${row.thumbnail_1}`} alt={row.name} className='w-24 py-2'/>
             )
         },
         {
@@ -80,13 +100,13 @@ export default function Index({auth,flashMessage,categories}) {
     
     return (
         <Authenticated user={auth.user}>
-            <Head title='Category' />
-            <Title label="Category"/>
+            <Head title='Product' />
+            <Title label="Product"/>
             {flashMessage?.message && (
                 <FlashMessage message={flashMessage.message} type={flashMessage.type}/>
             )}
             <div className="flex justify-between mb-3">
-                <Link href={route('admin.category.create')} className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 active:bg-blue-600 focus:ring-blue-600">
+                <Link href={route('admin.product.create')} className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 active:bg-blue-600 focus:ring-blue-600">
                     <span className="bi-plus-lg"/>Add
                 </Link>
                 <Filter filterText={filterText} onFilter={handleFilter} onClear={handleClear}/>

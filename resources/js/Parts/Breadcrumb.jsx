@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/react";
 export default function BreadCrumb({ items }) {
   return (
     <nav
-      className="container w-full py-3 mx-auto text-gray-400"
+      className="container w-full px-2 py-3 mx-auto text-gray-400 md:px-0"
       aria-label="Breadcrumb"
     >
       <ol className="inline-flex list-none">

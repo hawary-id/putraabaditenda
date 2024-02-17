@@ -7,7 +7,7 @@ export default function SecondButton({ href,className = '', disabled, children, 
                 href={href}
                 {...props}
                 className={
-                    `text-center w-full shadow-md items-center inline-flex justify-center py-2 bg-white text-blue-600 border border-blue-600 rounded-md font-semibold uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 ${
+                    `text-center shadow-md items-center inline-flex justify-center py-2 bg-white text-blue-600 border border-blue-600 rounded-md font-semibold uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 ${
                         disabled && 'opacity-25'
                     } ` + className
                 }

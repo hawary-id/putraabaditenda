@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,27 +22,20 @@ use Inertia\Inertia;
 |
 */
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
-
 Route::get('/',[FrontController::class,'index'])->name('home');
 Route::get('/tentang-kami',[FrontController::class,'aboutUs'])->name('aboutUs');
 Route::get('/produk',[FrontController::class,'product'])->name('product');
 Route::get('/produk/{slug}',[FrontController::class,'productDetail'])->name('productDetail');
 Route::get('/kontak',[FrontController::class,'contact'])->name('contact');
+Route::post('/kontak',[FrontController::class,'contactStore'])->name('contactStore');
+Route::get('/sitemap.xml',[SitemapController::class,'index'])->name('sitemap');
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
     Route::resource('/category',CategoryController::class);
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('/product',ProductController::class);
+    Route::get('/profile',[AdminProfileController::class,'index'])->name('profile');
+    Route::patch('/profile',[AdminProfileController::class,'update'])->name('profile.update');
 });
 
 require __DIR__.'/auth.php';
