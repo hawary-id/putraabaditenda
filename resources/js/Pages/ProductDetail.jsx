@@ -71,7 +71,7 @@ export default function ProductDetail({product,relates}) {
                             <div className="px-2 mb-3 text-sm text-white md:mb-6 bg-emerald-400 w-fit">{product.category.name}</div>
                             <p className="mb-3 text-gray-600 md:mb-6" dangerouslySetInnerHTML={{ __html: product.description}}/>
                             <div className="text-sm font-semibold text-red-600 line-through">Rp. {formatNumber(product.price)},-</div>
-                            <h2 className="mb-5 text-2xl font-semibold text-blue-600 md:text-4xl md:mb-10">Rp {product.discount_price.toLocaleString()},-</h2>
+                            <h2 className="mb-5 text-2xl font-semibold text-blue-600 md:text-4xl md:mb-10">Rp {formatNumber(product.discount_price)},-</h2>
                             <PrimaryButton onClick={() => handleWhatAppClick()} className="block w-full px-10 py-3 text-sm md:w-fit hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-700 hover:text-white focus:text-white active:text-white">PESAN SEKARANG</PrimaryButton>
                         </div>          
 
