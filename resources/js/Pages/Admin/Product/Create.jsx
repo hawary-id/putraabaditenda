@@ -4,6 +4,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
+import { useEffect } from 'react';
 import ReactQuill from "react-quill";
 import Select from 'react-select';
 import Swal from 'sweetalert2';
@@ -38,6 +39,12 @@ export default function Index({auth,categories}) {
             }
         });
     };
+
+    useEffect(() => {
+        if (data.description === '<p><br></p>') {
+          setData({ ...data, description: '' });
+        }
+    }, [data.description]);
     
     return (
         <Authenticated user={auth.user}>
@@ -68,7 +75,6 @@ export default function Index({auth,categories}) {
                                 className="block w-full mt-1"
                                 autoComplete="name"
                                 placeholder="Product Name"
-                                isFocused={true}
                                 onChange={(e) => setData('name', e.target.value)}
                             />
                             <InputError message={errors.name} className="mt-2" />

@@ -16,7 +16,7 @@ export default function Authenticated({ user, header, children }) {
             </SidebarPrime>
             <Sidebar/>
            <div className="w-full h-screen overflow-y-auto">
-                <nav className="sticky top-0 w-full">
+                <nav className="sticky top-0 z-50 w-full">
                     <div className="flex items-center justify-between px-4 py-2 bg-white shadow-md md:justify-end">
                         <button onClick={() => setVisible(true)} className='block px-2 py-1 border rounded md:hidden h-fit bi-list hover:bg-gray-100 active:bg-gray-100 focus:bg-gray-100'></button>
                         <button className="flex items-center space-x-3 group">

@@ -12,8 +12,8 @@ export default function CardCategory({data}) {
             <img src={`/storage/${data?.thumbnail}`} alt="" className='object-cover h-44 md:h-72'/>
             <div className="flex flex-col justify-between w-full p-3">
                 <div className="">
-                    <div className="text-sm font-semibold text-red-600 line-through">Rp. {formatNumber(data?.cheapest_product.discount_price)}</div>
-                    <div className="mb-2 text-xl font-bold text-blue-600">Rp. {formatNumber(data?.cheapest_product.price)}</div>
+                    <div className="text-sm font-semibold text-red-600 line-through">Rp. {formatNumber(data?.cheapest_product.price)}</div>
+                    <div className="mb-2 text-xl font-bold text-blue-600">Rp. {formatNumber(data?.cheapest_product.discount_price)}</div>
                 </div>
                 <div className="">
                     <div className="text-lg font-bold text-gray-800">{data?.name}</div>

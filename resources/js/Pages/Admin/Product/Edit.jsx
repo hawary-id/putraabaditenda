@@ -4,7 +4,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import Authenticated from '@/Layouts/AuthenticatedLayout';
 import { Head, router, useForm } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactQuill from "react-quill";
 import Select from 'react-select';
 import Swal from 'sweetalert2';
@@ -17,8 +17,8 @@ export default function Edit({auth,categories,product}) {
         thumbnail_1: product.thumbnail_1,
         thumbnail_2: product.thumbnail_2,
         thumbnail_3: product.thumbnail_3,
-        price: product.price,
-        discount_price: product.discount_price,
+        price: parseInt(product.price),
+        discount_price: parseInt(product.discount_price),
         category_id: product.category_id,
     });
 
@@ -124,6 +124,12 @@ export default function Edit({auth,categories,product}) {
             }
         });
     };
+
+    useEffect(() => {
+        if (data.description === '<p><br></p>') {
+          setData({ ...data, description: '' });
+        }
+    }, [data.description]);
     
     return (
         <Authenticated user={auth.user}>
@@ -154,7 +160,6 @@ export default function Edit({auth,categories,product}) {
                                 className="block w-full mt-1"
                                 autoComplete="name"
                                 placeholder="Product Name"
-                                isFocused={true}
                                 onChange={(e) => setData('name', e.target.value)}
                             />
                             <InputError message={errors.name} className="mt-2" />

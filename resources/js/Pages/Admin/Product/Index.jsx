@@ -81,7 +81,7 @@ export default function Index({auth,flashMessage,products}) {
         {
             name: 'Thumbnail',
             cell: row => (
-                <img src={`/storage/${row.thumbnail_1}`} alt={row.name} className='w-24 py-2'/>
+                <img src={`/storage/${row.thumbnail_1}`} alt={row.name} className='h-16 py-2'/>
             )
         },
         {
@@ -115,6 +115,10 @@ export default function Index({auth,flashMessage,products}) {
                 <DataTable
                     columns={columns}
                     data={filteredData}
+                    responsive
+                    // fixedHeader
+                    // fixedHeaderScrollHeight="650px"
+                    dense
                 />
             </div>
         </Authenticated>

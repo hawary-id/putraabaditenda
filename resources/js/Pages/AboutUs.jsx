@@ -3,7 +3,7 @@ import Title from "@/Components/Title";
 import Guest from "@/Layouts/GuestLayout";
 import BreadCrumb from "@/Parts/Breadcrumb";
 import Header from "@/Parts/Header";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 export default function AboutUs(second) {
     const breadCrumbItem = [
@@ -37,8 +37,14 @@ export default function AboutUs(second) {
                 <div className="container grid grid-cols-1 gap-6 px-3 mx-auto md:grid-cols-2">
                     <div className="order-last w-full md:order-first">
                         <Title label="Profil Perusahaan"/>
-                        <p className="mb-2 text-justify text-gray-600 indent-8"><span className="font-semibold text-blue-600">PUTRA ABADI TENDA</span> tidak hanya penyedia produk; kami adalah solusi singkat untuk kebutuhan Anda. Dengan bahan berkualitas tinggi, setiap pembelian dijamin investasi dalam kehandalan jangka panjang. Koleksi produk beragam kami dirancang untuk memenuhi segala keperluan, dari acara outdoor gaya hingga petualangan alam yang menantang.</p>
-                        <p className="mb-5 text-justify text-gray-600 indent-8">Komitmen kami tidak hanya pada nilai harga, tetapi juga dalam setiap detail produk yang kami tawarkan. Dengan harga bersaing, setiap pelanggan mendapatkan kombinasi sempurna antara kehandalan, gaya tak tertandingi, dan nilai yang melebihi harapan. Di <span className="font-semibold text-blue-600">PUTRA ABADI TENDA</span>, kami tidak hanya menyediakan produk; kami ciptakan pengalaman yang memenuhi dan melampaui ekspektasi Anda.</p>
+                        <p className="mb-2 text-justify text-gray-600 indent-8">
+                            TENDA, JUAL Tenda, Produsen TENDA, Supplier TENDA, Tenda PROMO, TENDA KERUCUT, TENDA DOME, TENDA CAFE, TENDA PLETON, TENDA MOBIL, hp 085777558494
+                        </p>
+                        <Link href={route('home')} className="font-semibold text-blue-600 hover:text-blue-700">PUTRAABADITENDA.COM</Link>
+                        <p className="my-2 text-justify text-gray-600 indent-8">
+                            <span className="font-semibold text-blue-600">PUTRA ABADI TENDA</span> adalah Produsen dan Supplier aneka macam tenda dan perlengkapan pembuatan tenda dengan berbagai macam ukuran dan bahan yang bisa disesuaikan dengan permintaan kebutuhan.
+                            Berbagai tenda yang kami produksi antara lain : tenda dome, tenda promo, tenda mobil, tenda cafe, tenda haji, tenda untuk resepsi pernikahan, tenda VIP, tenda sahara, tenda sarnafil / tenda kerucut, tenda pleton dll. Kami menyediakan berbagai bahan terpal pilihan untuk produksi tenda kami sehingga tenda yang kami produksi berkualitas. Jual Tenda, Pabrik Tenda, Tenda Murah.</p>
+                        <p className="mb-5 text-justify text-gray-600 indent-8">Dengan pengalaman yang lebih dari 15 tahun dan kesungguhan untuk memberikan pelayanan terbaik bagi para konsumen, maka kami sangat dikenal baik oleh distributor dan pemakai langsung dari produk tenda kami. Kami siap melayani pembuatan / pemesanan aneka macam tenda dengan berbagai ukuran untuk didistribusikan ke seluruh Indonesia dengan harga yang sangat kompetitif dan kualitas yang tidak perlu diragukan lagi.</p>
                         <div className="flex justify-center w-full md:justify-start">
                         <PrimaryButton onClick={handleWhatAppClick}>
                             <span className="mr-2 text-xl bi-whatsapp"/>
